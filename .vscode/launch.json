@@ -1,0 +1,88 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+	  {
+		  "name": "ESP-IDF debug(cppdbg)",
+		  "type": "cppdbg",
+		  "request": "launch",
+		  "program": "${config:esp_idf_app_elf_path}",
+		  "args": [],
+		  "cwd": "${workspaceFolder}",
+		  "externalConsole": false,
+		  "MIMode": "gdb",
+		  "useExtendedRemote": true,
+		  "miDebuggerPath": "${config:esp_idf_app_gdb}",
+		  "debugServerPath": "${config:esp_idf_openocd_path}/openocd",
+		  "windows" : {
+			"miDebuggerPath": "${config:esp_idf_app_gdb}.exe",
+			"debugServerPath": "${config:esp_idf_openocd_path}\\openocd.exe",
+		  },
+		  "miDebuggerServerAddress": ":3333",
+		  "debugServerArgs": "${config:esp_idf_openocd_config}",
+		  "filterStderr": true,
+		  "filterStdout": false,
+		  "launchCompleteCommand": "None",
+		  "setupCommands": [
+			{ "text": "set remotetimeout 10" },
+		  ],
+		  "postRemoteConnectCommands": [
+			{ "text": "mon reset halt" },
+			{ "text": "maintenance flush register-cache"},
+		  ],
+		  "stopAtConnect": false,
+		  "logging": {
+			"exceptions": true,
+			"engineLogging": false,
+			"moduleLoad": false,
+			"programOutput": false,
+			"trace": true,
+			"traceResponse": true
+		  },
+	  },
+	  {
+		  "name": "ESP-IDF debug(cortex-debug)",
+		  "type": "cortex-debug",
+		  "request": "launch",
+		  "executable": "${config:esp_idf_app_elf_path}",
+		  "cwd": "${workspaceFolder}",
+		  "gdbPath": "${config:esp_idf_app_gdb}",
+		  "debuggerArgs": ["-iex", "set remotetimeout 10"],
+		  "servertype": "openocd",
+		  "serverpath": "${config:esp_idf_openocd_path}/openocd",
+		  "overrideLaunchCommands": [
+			"mon reset halt",
+			"thb app_main",
+			"maintenance flush register-cache",
+			"continue"
+		  ],
+		  "windows" : {
+			"serverpath": "${config:esp_idf_openocd_path}\\openocd.exe",
+		  },
+		  "armToolchainPath": "${config:esp_idf_app_toolchain}",
+		  "toolchainPrefix": "${config:esp_idf_app_toolchain_prefix}",
+		  "runToEntryPoint": "app_main",
+		  "configFiles": [
+			  "${config:esp_idf_openocd_board_config}",
+		  ],
+		  "rtos": "FreeRTOS",
+		  "showDevDebugOutput": "raw",
+	  },
+	  {
+		"name": "ESP-IDF debug(espidf)",
+		"type": "espidf",
+		"request": "launch",
+		"logLevel": 2,
+		"windows" : {
+			"initGdbCommands": [
+			"set remotetimeout 60",
+			"target extended-remote :3333",
+			"monitor reset halt",
+			"maintenance flush register-cache",
+			"thbreak app_main",
+			"continue",
+			],
+		}
+	  },
+	]
+  }
+  

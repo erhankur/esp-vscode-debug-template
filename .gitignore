@@ -1,0 +1,4 @@
+.gdb_history
+build/*
+sdkconfig
+sdkconfig.old

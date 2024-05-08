@@ -1,0 +1,30 @@
+{
+    "esp_idf_path"                : "${env:IDF_PATH}",
+    "esp_idf_openocd_version"     : "v0.12.0-esp32-20240318",
+    "esp_idf_gdb_version"         : "14.2_20240403",
+    "esp_idf_toolchain_version"   : "13.2.0_20240305",
+    "esp_idf_tools_path"          : "${env:IDF_TOOLS_PATH}",
+    "esp_riscv_toolchain_prefix"  : "riscv32-esp-elf",
+    "esp_xtensa_toolchain_prefix" : "xtensa-esp-elf",
+    "esp_idf_riscv_toolchain"     : "${config:esp_idf_tools_path}${pathSeparator}tools${pathSeparator}${config:esp_riscv_toolchain_prefix}${pathSeparator}esp-${config:esp_idf_toolchain_version}${pathSeparator}${config:esp_riscv_toolchain_prefix}${pathSeparator}bin",
+    "esp_idf_xtensa_toolchain"    : "${config:esp_idf_tools_path}${pathSeparator}tools${pathSeparator}${config:esp_xtensa_toolchain_prefix}${pathSeparator}esp-${config:esp_idf_toolchain_version}${pathSeparator}${config:esp_xtensa_toolchain_prefix}${pathSeparator}bin",
+    "esp_idf_riscv_gdb"           : "${config:esp_idf_tools_path}${pathSeparator}tools${pathSeparator}${config:esp_riscv_toolchain_prefix}-gdb${pathSeparator}${config:esp_idf_gdb_version}${pathSeparator}${config:esp_riscv_toolchain_prefix}-gdb${pathSeparator}bin${pathSeparator}${config:esp_riscv_toolchain_prefix}-gdb",
+    "esp_idf_xtensa_gdb"          : "${config:esp_idf_tools_path}${pathSeparator}tools${pathSeparator}${config:esp_xtensa_toolchain_prefix}-gdb${pathSeparator}${config:esp_idf_gdb_version}${pathSeparator}${config:esp_xtensa_toolchain_prefix}-gdb${pathSeparator}bin${pathSeparator}xtensa-esp32-elf-gdb",
+    "esp_idf_openocd_path"        : "${config:esp_idf_tools_path}${pathSeparator}tools${pathSeparator}openocd-esp32${pathSeparator}${config:esp_idf_openocd_version}${pathSeparator}openocd-esp32${pathSeparator}bin",
+    
+    // app specific variabled based on the target architecture
+    "esp_idf_app_elf_file"        : "vscode-template.elf",
+    "esp_idf_app_elf_path"        : "${workspaceFolder}${pathSeparator}build${pathSeparator}${config:esp_idf_app_elf_file}",
+    "esp_idf_app_gdb"             : "${config:esp_idf_riscv_gdb}",
+    "esp_idf_app_toolchain"       : "${config:esp_idf_riscv_toolchain}",
+    "esp_idf_app_toolchain_prefix": "${config:esp_riscv_toolchain_prefix}",
+    "esp_idf_openocd_board_config": "board/esp32h2-builtin.cfg",
+    "esp_idf_openocd_config"      : "-f ${config:esp_idf_openocd_board_config} -d2 -locd-log.txt",
+  
+    // esp-idf debug adapter variables
+    "idf.adapterTargetName"       : "esp32h2",
+    "idf.openOcdConfigs"          : ["board/esp32h2-builtin.cfg"],
+    "idf.openOcdDebugLevel"       : 2,
+    "idf.openOcdLaunchArgs"       : ["-l log.txt"],
+  }
+  
